@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -31,7 +31,9 @@ namespace Calculator
         {
             
             Button button = (Button)sender;
-            string symbol =  button.Content.ToString();
+#pragma warning disable CS8600 // Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.
+            string symbol = button.Content.ToString();
+#pragma warning restore CS8600 // Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.
             TextBlock textBlock = (TextBlock)Screen;
             TextBlock func = (TextBlock)Funct;
             if (textBlock.Text == "Введите...")
@@ -81,25 +83,28 @@ namespace Calculator
             int length = ex.Length;
             for (int i = 0; i < length; i++)
             {
-                
+
                 // посля √
                 if (ex[i] == '√')
                 {
 
                     string addn = "";
-                    if (char.IsDigit(ex[i - 1]))
+                    if (i != 0)
                     {
-                        int prevend = i - 1; // начало
-                        int prevstart = prevend;
-
-                        // кончало
-                        while (prevstart > 0 && char.IsDigit(ex[prevstart]))
+                        if (char.IsDigit(ex[i - 1]))
                         {
-                            prevstart = prevstart - 1;
-                        }
+                            int prevend = i - 1; // начало
+                            int prevstart = prevend;
 
-                        // выкончало
-                        addn = ex.Substring(prevstart, prevend - prevstart)+"*";//
+                            // кончало
+                            while (prevstart > 0 && char.IsDigit(ex[prevstart]))
+                            {
+                                prevstart = prevstart - 1;
+                            }
+
+                            // выкончало
+                            addn = ex.Substring(prevstart, prevend - prevstart) + "*";//
+                        }
                     }
                     int start = i + 1; // начало
                     int end = start;
@@ -107,7 +112,7 @@ namespace Calculator
                     // кончало
                     while (end < length && char.IsDigit(ex[end]))
                     {
-                        end=end+1;
+                        end = end + 1;
                     }
 
                     // выкончало
@@ -117,12 +122,14 @@ namespace Calculator
                         double root = Math.Sqrt(number);
                         output += addn;
                         output += root.ToString();
-                        i = end - 1; 
+                        i = end - 1;
                     }
-                    else
-                    {
-                    }
+                
+                else
+                {
                 }
+            }
+
                 else
                 {
 
