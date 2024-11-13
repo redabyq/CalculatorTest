@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
         Title="куляторКаль" Height="700" Width="400" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" >
     <Window.Resources>
 
